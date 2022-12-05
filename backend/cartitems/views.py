@@ -22,4 +22,5 @@ class CartItemGetUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CartItemSerializer
     authentication_classes = ( TokenAuthentication,SessionAuthentication)
     permission_classes = [IsAuthenticated]
+    
 cart_item_get_update_delete = CartItemGetUpdateDeleteView.as_view()    

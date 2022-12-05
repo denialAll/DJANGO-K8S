@@ -19,7 +19,6 @@ class CartCustomView(APIView):
     parser_classes = [JSONParser]
 
     def post(self, request):
-        print(request.data)
         cart = request.data["cart"]
         cart_serializer = CartSerializer(data=cart)
         if cart_serializer.is_valid():
@@ -27,12 +26,12 @@ class CartCustomView(APIView):
             cart_object = Cart.objects.create(**cart_serializer.validated_data)
            
         items = request.data["cartList"]
+
         for item in items:
             item_serializer = CartItemSerializer(data=item)
             if item_serializer.is_valid():
                 item_serializer.validated_data.update({"cart":cart_object})
-                print("validated_data", item_serializer.validated_data)
-                CartItem.objects.create(**item_serializer.validated_data)    
+                cart_item = CartItem.objects.create(**item_serializer.validated_data) 
         
         return Response(cart)
 

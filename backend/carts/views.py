@@ -38,10 +38,6 @@ class CartCustomView(APIView):
 
 cart_custom_view = CartCustomView.as_view()
 
-return Response({
-            "user": UserSerializer(user, context=self.get_serializer_context()).data,
-            "token": AuthToken.objects.create(user)[1]
-        })
 
 
 class CartListCreateView(generics.ListCreateAPIView):

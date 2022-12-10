@@ -9,6 +9,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from knox.auth import TokenAuthentication
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
+from rest_framework import status
 
 
 # Create your views here.
@@ -33,9 +34,14 @@ class CartCustomView(APIView):
                 item_serializer.validated_data.update({"cart":cart_object})
                 cart_item = CartItem.objects.create(**item_serializer.validated_data) 
         
-        return Response(cart)
+        return Response({"order_status": "order received"},status=status.HTTP_200_OK)
 
 cart_custom_view = CartCustomView.as_view()
+
+return Response({
+            "user": UserSerializer(user, context=self.get_serializer_context()).data,
+            "token": AuthToken.objects.create(user)[1]
+        })
 
 
 class CartListCreateView(generics.ListCreateAPIView):

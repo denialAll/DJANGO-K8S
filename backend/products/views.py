@@ -72,7 +72,7 @@ class ProductUpdateAPIView(generics.UpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
-    permission_classes = [IsMerchant]
+    permission_classes = [IsAuthenticated]
 
 product_update_view = ProductUpdateAPIView.as_view()
 

@@ -26,14 +26,14 @@ class CartCustomView(APIView):
             cart_serializer.validated_data.update({"customer":request.user})
             cart_object = Cart.objects.create(**cart_serializer.validated_data)
            
-        items = request.data["cartList"]
+            items = request.data["cartList"]
 
-        for item in items:
-            item_serializer = CartItemSerializer(data=item)
-            if item_serializer.is_valid():
-                item_serializer.validated_data.update({"cart":cart_object})
-                cart_item = CartItem.objects.create(**item_serializer.validated_data) 
-        
+            for item in items:
+                item_serializer = CartItemSerializer(data=item)
+                if item_serializer.is_valid():
+                    item_serializer.validated_data.update({"cart":cart_object})
+                    cart_item = CartItem.objects.create(**item_serializer.validated_data) 
+            
         return Response({"order_status": "order received"},status=status.HTTP_200_OK)
 
 cart_custom_view = CartCustomView.as_view()

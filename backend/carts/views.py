@@ -60,3 +60,26 @@ class CartGetUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
 
 cart_get_update_delete = CartGetUpdateDeleteView.as_view()    
 
+
+class CartListNewOrders(generics.ListAPIView):
+    serializer_class = CartSerializer
+    authentication_classes = ( TokenAuthentication,SessionAuthentication)
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        qs = Cart.objects.all().filter(merchant = self.request.user).filter(is_accepted = None)
+        return qs
+
+cart_list_new_orders = CartListNewOrders.as_view()
+
+class CartListAcceptedOrders(generics.ListAPIView):
+    serializer_class = CartSerializer
+    authentication_classes = ( TokenAuthentication,SessionAuthentication)
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        qs = Cart.objects.all().filter(merchant = self.request.user).filter(is_accepted = True)
+        return qs
+
+cart_list_accepted_orders = CartListAcceptedOrders.as_view()
+    

@@ -35,21 +35,29 @@ class AllProductListAPIView(generics.ListAPIView):
 
 all_product_list_view = AllProductListAPIView.as_view()
 
-# class SnippetList(APIView):
-#     """
-#     List all snippets, or create a new snippet.
-#     """
-#     # authentication_classes = (TokenAuthentication,)
-#     # permission_classes = [IsAuthenticated]
 
-#     def get(self, request, format=None):
-#         products = Product.objects.all()
-#         serializer = ProductSerializer(products, many=True)
-#         print(request.headers)
-#         return Response(serializer.data)
+class MerchantProductListAPIView(generics.ListAPIView):
+    serializer_class = ProductSerializer
+    authentication_classes = (TokenAuthentication,SessionAuthentication)
+    permission_classes = [IsAuthenticated]
 
-# product_list_view = SnippetList.as_view()
+    def get_queryset(self):
+        print(self.request.user)
+        qs = Product.objects.all().filter(merchant = self.request.user)
+        return qs
+        
+merchant_product_list_view = MerchantProductListAPIView.as_view()
 
+class ProductRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ProductSerializer
+    authentication_classes = (TokenAuthentication,SessionAuthentication)
+
+    def get_queryset(self):
+        print(self.request.user)
+        qs = Product.objects.all().filter(merchant = self.request.user)
+        return qs
+
+product_rud_view = ProductRetrieveUpdateDestroyAPIView.as_view()
 
 class ProductRetrieveAPIView(generics.RetrieveAPIView):
     queryset = Product.objects.all()

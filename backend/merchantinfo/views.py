@@ -12,8 +12,8 @@ from myproject.permissions import IsMerchant
 class MerchantInfoCreateAPIView(generics.CreateAPIView):
     queryset = MerchantInfo.objects.all()
     serializer_class = MerchantInfoSerializer
-    # authentication_classes = (TokenAuthentication,)
-    # permission_classes = [IsMerchant]
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = [IsMerchant]
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -23,8 +23,8 @@ merchantinfo_create_view = MerchantInfoCreateAPIView.as_view()
 class MerchantInfoListAPIView(generics.ListAPIView):
     queryset = MerchantInfo.objects.all()
     serializer_class = MerchantInfoSerializer
-    # authentication_classes = (TokenAuthentication,)
-    # permission_classes = [IsMerchant]
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = [IsMerchant]
   
 
 merchantinfo_list_view = MerchantInfoListAPIView.as_view()

@@ -8,4 +8,6 @@ urlpatterns = [
     path('destroy/<int:pk>/',views.product_destroy_view, name='product-destroy'),
     path('update/<int:pk>/',views.product_update_view, name='product-update'),
     path('listall/',views.all_product_list_view, name='all-product'),
+    path('list/merchant-products/',views.merchant_product_list_view, name='merchant-products'),
+    path('rud/<int:pk>/', views.product_rud_view, name='product-rud')
 ]

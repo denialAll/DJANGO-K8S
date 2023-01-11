@@ -5,6 +5,7 @@ from useraddresses.models import Address
 
 class Cart(models.Model):
     customer = models.ForeignKey('auth.User', related_name='cart_owner', on_delete=models.CASCADE, null = True)
+    merchant = models.ForeignKey('auth.User', related_name='cart_merchant', on_delete=models.CASCADE, null = True)
     address = models.ForeignKey(Address, related_name='cart_address',on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=11)
     created = models.DateTimeField(db_index=True, auto_now_add=True)

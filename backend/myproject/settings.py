@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     #third party libraries
     'rest_framework',
     'knox',
+    'django_rest_passwordreset',
     #my application libraries
     'products',
     # 'customers',
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     'carts',
     'cartitems',
     'useraddresses',
+    'testimage'
     
   
 ]

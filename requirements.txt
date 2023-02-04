@@ -1,0 +1,13 @@
+django>=4.0.0,<4.1.0
+djangorestframework
+django-rest-passwordreset
+pyyaml
+requests
+django-cors-headers
+django-rest-knox
+Pillow
+gunicorn
+django-dotenv
+psycopg2-binary
+django-storages
+boto3

@@ -5,7 +5,7 @@ from .serializers import ProductSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from knox.auth import TokenAuthentication
-from myproject.permissions import IsMerchant
+from django_k8s.permissions import IsMerchant
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response

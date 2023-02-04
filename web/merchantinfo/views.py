@@ -4,7 +4,7 @@ from .serializers import MerchantInfoSerializer
 from rest_framework.permissions import IsAuthenticated
 from knox.auth import TokenAuthentication
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from myproject.permissions import IsMerchant
+from django_k8s.permissions import IsMerchant
 
 
 # Create your views here.

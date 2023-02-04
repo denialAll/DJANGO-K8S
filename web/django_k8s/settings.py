@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'django_k8s.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_k8s',
+        'NAME': 'myproject',
         'USER': 'danial',
         'PASSWORD': 'dan',
         'HOST': 'localhost',

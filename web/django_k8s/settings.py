@@ -27,12 +27,18 @@ MEDIA_URL = '/media/'
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1on7nn=2c#xa!(9%ateo9qpnha=cm!$#8@^i-13xdd24-xn4k3'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY') 
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = str(os.environ.get("DEBUG")) == "1"
 
-ALLOWED_HOSTS = ["192.168.18.18", "localhost"]
+ENV_ALLOWED_HOST = os.environ.get('ENV_ALLOWED_HOST')
+ALLOWED_HOSTS = []
+if ENV_ALLOWED_HOST:
+    ALLOWED_HOSTS = [ ENV_ALLOWED_HOST ] 
+
 
 
 # Application definition
@@ -97,16 +103,38 @@ WSGI_APPLICATION = 'django_k8s.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'myproject',
-        'USER': 'danial',
-        'PASSWORD': 'dan',
-        'HOST': 'localhost',
-        'PORT': '5432',
+
+DB_IGNORE_SSL = os.environ.get("DB_IGNORE_SSL") == "true"
+
+DB_USERNAME = os.environ.get("POSTGRES_USER")
+DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
+DB_DATABASE = os.environ.get("POSTGRES_DB")
+DB_HOST = os.environ.get("POSTGRES_HOST")
+DB_PORT = os.environ.get("POSTGRES_PORT")
+
+DB_ID_AVAIL = all([
+    DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_HOST, DB_PORT
+])
+
+
+if DB_ID_AVAIL:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': DB_DATABASE,
+            'USER': DB_USERNAME,
+            'PASSWORD': DB_PASSWORD,
+            'HOST': DB_HOST,
+            'PORT': DB_PORT
+        }
     }
-}
+
+    if not DB_IGNORE_SSL:
+        DATABASES["default"]["OPTIONS"] = {
+            "sslmode": "require"
+        } 
+
+
 
 
 # Password validation

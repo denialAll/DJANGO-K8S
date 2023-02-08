@@ -7,6 +7,7 @@ django-cors-headers
 django-rest-knox
 Pillow
 gunicorn
+python-dotenv
 django-dotenv
 psycopg2-binary
 django-storages

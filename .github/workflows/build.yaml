@@ -10,7 +10,7 @@ on:
   
 jobs:
   test_django_job:
-    uses: denialAll/DJANGO-K8S/.github/workflows/test-django.yaml@main
+    uses: denialAll/DJANGO-K8S/.github/workflows/test-django.yaml@master
   docker_build:
     runs-on: ubuntu-latest
     needs: [test_django_job]

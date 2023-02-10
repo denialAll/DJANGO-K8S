@@ -15,6 +15,7 @@ jobs:
       run:
         working-directory: ./web 
     env:
+      DJANGO_SECRET_KEY: django-insecure-1on7nn=2c#xa!(9%ateo9qpnha=cm!$#8@^i-13xdd24-xn4k3
       POSTGRES_DB: myproject
       POSTGRES_PASSWORD: dan
       POSTGRES_USER: danial
@@ -31,9 +32,9 @@ jobs:
           - 5432:5432
         options: >-
           --health-cmd pg_isready
-          --heath-interval 10s
-          --heath-timeout 5s
-          --heath-retires 5
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retires 5
 
 
     strategy:

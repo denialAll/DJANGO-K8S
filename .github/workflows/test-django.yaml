@@ -21,6 +21,7 @@ jobs:
       POSTGRES_USER: danial
       POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
+      DB_IGNORE_SSL: "true"
     services:
       postgres_main: 
         image: postgres:13
@@ -30,13 +31,12 @@ jobs:
           POSTGRES_USER: ${{ env.POSTGRES_USER }}
         ports:
           - 5432:5432
-        # options: >-
-        #   --health-cmd pg_isready
-        #   --health-interval 10s
-        #   --health-timeout 5s
-        #   --health-retires 5
-
-
+        options: >-
+          --health-cmd pg_isready 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
+        
     strategy:
       max-parallel: 4
       matrix:

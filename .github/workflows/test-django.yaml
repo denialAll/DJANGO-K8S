@@ -14,6 +14,28 @@ jobs:
     defaults:
       run:
         working-directory: ./web 
+    env:
+      POSTGRES_DB: myproject
+      POSTGRES_PASSWORD: dan
+      POSTGRES_USER: danial
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+    services:
+      postgres_main: 
+        image: postgres:13
+        env:
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --heath-interval 10s
+          --heath-timeout 5s
+          --heath-retires 5
+
+
     strategy:
       max-parallel: 4
       matrix:

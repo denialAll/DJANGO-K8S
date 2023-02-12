@@ -27,7 +27,7 @@ jobs:
       run: doctl registry login --expiry-seconds 1200
     - name: Build container image
       run: |
-        docker build -f web/Dockerfile \
+        docker build -f .web/Dockerfile \
           -t registry.digitalocean.com/zaanzain-k8s/django-k8s-web:latest \ 
           -t registry.digitalocean.com/zaanzain-k8s/django-k8s-web:${GITHUB_SHA::7}-${GITHUB_RUN_ID::5} \
           .

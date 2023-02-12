@@ -55,7 +55,7 @@ jobs:
     - name: Update Deployment image
       run: |
         kubectl set image deployment/django-k8s-web-deployment django-k8s-web=registry.digitalocean.com/
-        zaanzain-k8s/django-k8s-web:${GITHUB_SHA::4}-${GITHUB_RUN_ID::4}
+        zaanzain-k8s/django-k8s-web:latest
     - name: Wait for rollout to complete
       run: |
         kubectl rollout status deployment/django-k8s-web-deployment

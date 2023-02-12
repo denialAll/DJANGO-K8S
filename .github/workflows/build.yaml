@@ -26,7 +26,7 @@ jobs:
         cd ./web
         docker build -f Dockerfile \
           -t registry.digitalocean.com/zaanzain-k8s/django-k8s-web:latest \
-          -t registry.digitalocean.com/zaanzain-k8s/django-k8s-web:${GITHUB_SHA::7}-${GITHUB_RUN_ID::5} \
+          -t registry.digitalocean.com/zaanzain-k8s/django-k8s-web:${GITHUB_SHA::4}-${GITHUB_RUN_ID::4} \
           .
     - name: Push Image
       run: |
@@ -50,11 +50,12 @@ jobs:
         POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
         POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
         EOF
+        kubectl delete secret django-k8s-web-prod-env
         kubectl create secret generic django-k8s-web-prod-env --from-env-file=web/.env.prod
     - name: Update Deployment image
       run: |
         kubectl set image deployment/django-k8s-web-deployment django-k8s-web=registry.digitalocean.com/
-        zaanzain-k8s/django-k8s-web:${GITHUB_SHA::7}-${GITHUB_RUN_ID::5}
+        zaanzain-k8s/django-k8s-web:${GITHUB_SHA::4}-${GITHUB_RUN_ID::4}
     - name: Wait for rollout to complete
       run: |
         kubectl rollout status deployment/django-k8s-web-deployment

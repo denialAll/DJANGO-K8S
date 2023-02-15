@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from knox.auth import TokenAuthentication
 from django.db.models import Q
+from django_k8s.paginations import StandardResultsSetPagination
 
 # Create your views here.
 
@@ -63,9 +64,22 @@ class CustomerPreviousOrdersListView(generics.ListAPIView):
     serializer_class = CartItemSerializer
     authentication_classes = ( TokenAuthentication,SessionAuthentication)
     permission_classes = [IsAuthenticated]
+    pagination_class = StandardResultsSetPagination
 
     def get_queryset(self):
-        qs = CartItem.objects.all().filter(cart__customer  = self.request.user)
+        qs = CartItem.objects.all().filter(cart__customer  = self.request.user).order_by('-id')
         return qs
 
 customer_previous_orders_list = CustomerPreviousOrdersListView.as_view()
+
+class MerchantPreviousOrdersListView(generics.ListAPIView):
+    serializer_class = CartItemSerializer
+    authentication_classes = ( TokenAuthentication,SessionAuthentication)
+    permission_classes = [IsAuthenticated]
+    pagination_class = StandardResultsSetPagination
+
+    def get_queryset(self):
+        qs = CartItem.objects.all().filter(product__merchant  = self.request.user).filter(cart__is_sent = True).order_by('-id')
+        return qs
+
+merchant_previous_orders_list = MerchantPreviousOrdersListView.as_view()

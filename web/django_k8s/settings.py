@@ -197,9 +197,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = BASE_DIR / "staticfiles-cdn"
+# STATIC_ROOT = BASE_DIR / "staticfiles-cdn"
 
-from .cdn.conf import * # noqa
+# from .cdn.conf import * # noqa
 
 
 

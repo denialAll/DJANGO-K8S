@@ -8,5 +8,6 @@ urlpatterns = [
     path('newitemlist/', views.new_cart_item_list),
     path('accepteditemlist/', views.accepted_cart_item_list),
     path('newandacceptedlist/', views.new_accepted_cart_item_list),
-    path('customer/previous-orders/', views.customer_previous_orders_list)
+    path('customer/previous-orders/', views.customer_previous_orders_list),
+    path('merchant/previous-orders/', views.merchant_previous_orders_list)
 ]

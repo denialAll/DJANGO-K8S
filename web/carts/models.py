@@ -14,6 +14,9 @@ class Cart(models.Model):
     is_accepted = models.BooleanField(default=None, null = True)
     is_sent = models.BooleanField(default=False)
     is_rated = models.BooleanField(default=False)
+    delivery_cost = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank = True, default=0.0)
+    total_price = models.DecimalField(max_digits=8, decimal_places=1, null=True, blank = True, default=0.0)
+
     
     # @property
     # def total_price(self):

@@ -85,3 +85,4 @@ class CartListAcceptedOrders(generics.ListAPIView):
 
 cart_list_accepted_orders = CartListAcceptedOrders.as_view()
     
+

@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from knox.auth import TokenAuthentication
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from django_k8s.permissions import IsMerchant
-
+from django_k8s.paginations import MerchantListPagination
 
 # Create your views here.
 
@@ -23,16 +23,15 @@ merchantinfo_create_view = MerchantInfoCreateAPIView.as_view()
 class MerchantInfoListAPIView(generics.ListAPIView):
     queryset = MerchantInfo.objects.all()
     serializer_class = MerchantInfoSerializer
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = [IsMerchant]
-  
+    authentication_classes = (TokenAuthentication, SessionAuthentication)
+    permission_classes = [IsMerchant]  
 
 merchantinfo_list_view = MerchantInfoListAPIView.as_view()
 
 class MerchantListCreateView(generics.ListCreateAPIView):
     queryset = MerchantInfo.objects.all()
     serializer_class = MerchantInfoSerializer
-    authentication_classes = ( TokenAuthentication, SessionAuthentication, BasicAuthentication)
+    authentication_classes = ( TokenAuthentication, SessionAuthentication)
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
@@ -51,16 +50,22 @@ class MerchantGetUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = ( TokenAuthentication,SessionAuthentication)
     permission_classes = [IsAuthenticated]
 
-    
-    
 merchant_get_update_delete = MerchantGetUpdateDeleteView.as_view()   
 
-class MerchantListView(generics.ListAPIView):
-    ueryset = MerchantInfo.objects.all()
-    serializer_class = MerchantInfoSerializer
-    authentication_classes = ( TokenAuthentication, SessionAuthentication, BasicAuthentication)
-    permission_classes = [IsAuthenticated]
 
-merchant_list = MerchantListView.as_view()
+
+class ListView(generics.ListAPIView):
+    serializer_class = MerchantInfoSerializer
+    authentication_classes = ( TokenAuthentication,SessionAuthentication)
+    permission_classes = [IsAuthenticated]
+    pagination_class = MerchantListPagination
+
+    def get_queryset(self):
+        qs = MerchantInfo.objects.all().filter(is_open = True).filter(is_verified = True)
+        return qs
+
+merchant_list = ListView.as_view()
+
+
 
 

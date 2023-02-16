@@ -4,11 +4,13 @@ from rest_framework.views import APIView
 from .models import AverageRating
 from .serializers import AverageRatingSerializer
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes, authentication_classes
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from knox.auth import TokenAuthentication
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import api_view
 
 # Create your views here.
 
@@ -48,25 +50,18 @@ average_rating_update_view = AverageRatingUpdateView.as_view()
     
 
 
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+@authentication_classes((TokenAuthentication, SessionAuthentication))
+def current_user(request):
+    user = request.user
+    return Response({
+        'username': user.username,
+        'first_name': user.first_name,
+        'last_name': user.last_name
+    })
 
 
-    # cart = request.data["cart"]
-    #     cart_serializer = CartSerializer(data=cart)
-    #     if cart_serializer.is_valid():
-    #         cart_serializer.validated_data.update({"customer":request.user})
-    #         cart_object = Cart.objects.create(**cart_serializer.validated_data)
-           
-    #         items = request.data["cartList"]
-
-    #         for item in items:
-    #             item_serializer = CartItemSerializer(data=item)
-    #             if item_serializer.is_valid():
-    #                 item_serializer.validated_data.update({"cart":cart_object})
-    #                 cart_item = CartItem.objects.create(**item_serializer.validated_data) 
-            
-            
-    #         return Response({"order_status": "order received"},status=status.HTTP_200_OK)
-    #     return Response({"order_status": "validation failed"},status=status.HTTP_400_BAD_REQUEST)
 
 
 

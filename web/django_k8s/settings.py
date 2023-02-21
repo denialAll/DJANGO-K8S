@@ -17,11 +17,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Actual directory user files go to
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
 
-# URL used to access the media
-MEDIA_URL = '/media/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -192,14 +188,25 @@ USE_I18N = True
 USE_TZ = True
 
 
+# Actual directory user files go to
+MEDIA_ROOT = BASE_DIR / "mediafiles"
+
+# URL used to access the media
+MEDIA_URL = '/media/'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-# STATIC_ROOT = BASE_DIR / "staticfiles-cdn"
+STATIC_ROOT = BASE_DIR / "staticfiles-cdn"
 
-# from .cdn.conf import * # noqa
+STATICFILES_DIRS = [
+    BASE_DIR / "staticfiles",
+    BASE_DIR / "mediafiles"
+]
+
+from .cdn.conf import * # noqa
 
 
 

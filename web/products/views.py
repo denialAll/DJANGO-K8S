@@ -90,8 +90,7 @@ class ProductListAPIView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
-        print("This is the GET params", self.request.GET)
-        qs = Product.objects.all().filter(merchant = self.request.GET["restaurantId"])
+        qs = Product.objects.all().filter(merchant = self.request.GET["restaurantId"]).filter(is_available = true)
         return qs 
     
 

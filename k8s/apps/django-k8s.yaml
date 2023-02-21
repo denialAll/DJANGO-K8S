@@ -5,7 +5,7 @@ metadata:
   labels:
     app: django-k8s-web-deployment
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: django-k8s-web-deployment
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: django-k8s-web
-        image: registry.digitalocean.com/zaanzain-k8s/django-k8s-web:latest
+        image: registry.digitalocean.com/zaanzain-k8s/django-k8s-web:v7
         imagePullPolicy: Always
         envFrom:
           - secretRef:
@@ -28,7 +28,6 @@ spec:
         - containerPort: 8001
       imagePullSecrets:
         - name: zaanzain-k8s
-
 ---
 apiVersion: v1
 kind: Service

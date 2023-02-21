@@ -20,6 +20,11 @@ class CartItemSerializer(serializers.ModelSerializer):
     is_accepted = serializers.ReadOnlyField(source='cart.is_accepted')
     is_sent = serializers.ReadOnlyField(source='cart.is_sent')
     is_rated = serializers.ReadOnlyField(source='cart.is_rated')
+    restaurant_name = serializers.ReadOnlyField(source='cart.merchant_info.name')
+    restaurant_phone = serializers.ReadOnlyField(source='cart.merchant_info.phone_number')
+    delivery_cost = serializers.ReadOnlyField(source='cart.delivery_cost')
+    total_price = serializers.ReadOnlyField(source='cart.total_price') # calculated when the order was created
+    
 
 
     class Meta:

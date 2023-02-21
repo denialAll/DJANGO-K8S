@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: django-k8s-web
-        image: registry.digitalocean.com/zaanzain-k8s/django-k8s-web:v7
+        image: registry.digitalocean.com/zaanzain-k8s/django-k8s-web:v9
         imagePullPolicy: Always
         envFrom:
           - secretRef:

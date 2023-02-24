@@ -7,6 +7,7 @@ class CartItemSerializer(serializers.ModelSerializer):
     price = serializers.ReadOnlyField(source='product.price')
     merchant = serializers.ReadOnlyField(source='product.merchant.username')
     merchant_id = serializers.ReadOnlyField(source='product.merchant.id')
+    customer = serializers.ReadOnlyField(source='cart.customer.id')
     first_name = serializers.ReadOnlyField(source='cart.customer.first_name')
     last_name = serializers.ReadOnlyField(source='cart.customer.last_name')
     address = serializers.ReadOnlyField(source='cart.address.id')

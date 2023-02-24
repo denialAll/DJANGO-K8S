@@ -11,6 +11,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
+from decimal import Decimal
 
 # Create your views here.
 
@@ -22,7 +23,7 @@ class AverageRatingListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     
     def perform_create(self, serializer):
-        serializer.save(user = self.request.user)
+        serializer.save(customer = self.request.user)
 
 average_rating_list_create_view = AverageRatingListCreateView.as_view()
 
@@ -38,9 +39,9 @@ class AverageRatingUpdateView(generics.UpdateAPIView):
         rating_obj = AverageRating.objects.get(pk=pk)
         data = request.data
         print(data["taste"])
-        rating_obj.taste = ((rating_obj.taste * rating_obj.orders) + data["taste"])/(rating_obj.orders+1)
-        rating_obj.speed = ((rating_obj.speed * rating_obj.orders) + data["speed"])/(rating_obj.orders+1)
-        rating_obj.service = ((rating_obj.service * rating_obj.orders) + data["service"])/(rating_obj.orders+1)
+        rating_obj.taste = ((rating_obj.taste * rating_obj.orders) + Decimal(data["taste"]))/(rating_obj.orders+1)
+        rating_obj.speed = ((rating_obj.speed * rating_obj.orders) + Decimal(data["speed"]))/(rating_obj.orders+1)
+        rating_obj.service = ((rating_obj.service * rating_obj.orders) + Decimal(data["service"]))/(rating_obj.orders+1)
         rating_obj.orders += 1
         rating_obj.save()
 

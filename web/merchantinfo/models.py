@@ -12,4 +12,5 @@ class MerchantInfo(models.Model):
     delivery_charges = models.DecimalField(default=0.0, max_digits=5, decimal_places=1)
     delivery_free_cutoff = models.DecimalField(default=1000000, max_digits=12, decimal_places=1)
     min_order = models.DecimalField(default=0.0, max_digits=5, decimal_places=1)
+    delivery_radius = models.DecimalField(default=0.0, max_digits=3, decimal_places=1)
     
